@@ -30,7 +30,7 @@ const setBundleOpts = (project, target, rootPath, architect) => {
   const opts = {
     ...ParcelOpts.options,
     outDir: options.outputPath,
-    watch: true,
+    watch: true
   };
   if (options.assets) {
     options.assets.forEach(asset => {
@@ -48,7 +48,7 @@ const setBundleOpts = (project, target, rootPath, architect) => {
     prod: false,
     static: options.staticPath ? join(rootPath, options.staticPath) : '',
     type: project.projectType,
-    universal: /(server)/.test(architect),
+    universal: /(server)/.test(architect)
   };
 
   return bundleData;
@@ -64,7 +64,7 @@ const setBundleOpts = (project, target, rootPath, architect) => {
 const getWorkspaceConfig = rootPath => {
   const jsonOpts = {
     angular: 'angular.json',
-    nx: 'workspace.json',
+    nx: 'workspace.json'
   };
   let path = '';
   if (existsSync(join(rootPath, jsonOpts.angular))) {
@@ -76,7 +76,7 @@ const getWorkspaceConfig = rootPath => {
       `No workspace detected. Make sure that either ${jsonOpts.angular} or ${
         jsonOpts.nx
       } has be created in the project.`,
-      3,
+      3
     );
   }
 
@@ -89,7 +89,7 @@ const getWorkspaceConfig = rootPath => {
    */
   const envs = {
     dev: 'development',
-    prod: 'production',
+    prod: 'production'
   };
   const env = (process.env.NODE_ENV = argv.prod ? envs.prod : envs.dev);
   const isProd = env === envs.prod;
@@ -114,18 +114,29 @@ const getWorkspaceConfig = rootPath => {
    */
   const builders = {
     build: 'parcel:build',
-    serve: 'parcel:serve',
+    serve: 'parcel:serve'
   };
 
   if (!architect) {
-    Logger.error(`Project ${selectProject} isn't configured with ${selectArchitect}.`, 4);
+    Logger.error(
+      `Project ${selectProject} isn't configured with ${selectArchitect}.`,
+      4
+    );
   }
 
   if (architect.builder && !/(parcel)/.test(architect.builder)) {
-    Logger.error(`The ${selectArchitect} architect for the ${selectProject} project isn't configured for Parcel.`, 9);
+    Logger.error(
+      `The ${selectArchitect} architect for the ${selectProject} project isn't configured for Parcel.`,
+      9
+    );
   }
 
-  const bundleOpts = setBundleOpts(project, architect, projectRoot, selectArchitect);
+  const bundleOpts = setBundleOpts(
+    project,
+    architect,
+    projectRoot,
+    selectArchitect
+  );
   bundleOpts.prod = isProd;
 
   const bundler = new Bundler(bundleOpts);

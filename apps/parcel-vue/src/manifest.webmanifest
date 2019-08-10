@@ -1,6 +1,6 @@
 {
-  "name": "HomeStyle Custom",
-  "short_name": "HomeStyle",
+  "name": "Parcel Vue",
+  "short_name": "Vue",
   "theme_color": "#42b983",
   "background_color": "#fafafa",
   "display": "standalone",
