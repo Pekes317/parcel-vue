@@ -13,6 +13,9 @@
     },
     "parcel-vue-e2e": {
       "tags": []
+    },
+    "api": {
+      "tags": []
     }
   }
 }

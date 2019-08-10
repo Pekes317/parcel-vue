@@ -8,19 +8,15 @@
       "schematics": {},
       "architect": {
         "build": {
-          "builder": "@nrwl/web:build",
+          "builder": "parcel:build",
           "options": {
             "outputPath": "dist/apps/parcel-vue",
             "index": "apps/parcel-vue/src/index.html",
-            "main": "apps/parcel-vue/src/main.ts",
+            "main": "apps/parcel-vue/src/main.client.ts",
             "polyfills": "apps/parcel-vue/src/polyfills.ts",
             "tsConfig": "apps/parcel-vue/tsconfig.app.json",
-            "assets": [
-              "apps/parcel-vue/src/favicon.ico",
-              "apps/parcel-vue/src/assets"
-            ],
-            "styles": ["apps/parcel-vue/src/styles.scss"],
-            "scripts": []
+            "assets": ["apps/parcel-vue/src/assets"],
+            "staticPath": "public"
           },
           "configurations": {
             "production": {
@@ -48,9 +44,12 @@
           }
         },
         "serve": {
-          "builder": "@nrwl/web:dev-server",
+          "builder": "parcel:serve",
           "options": {
-            "buildTarget": "parcel-vue:build"
+            "outputPath": "dist/apps/parcel-vue",
+            "index": "apps/parcel-vue/src/index.html",
+            "main": "apps/parcel-vue/src/main.client.ts",
+            "polyfills": "apps/parcel-vue/src/polyfills.ts"
           },
           "configurations": {
             "production": {
@@ -76,6 +75,27 @@
             "jestConfig": "apps/parcel-vue/jest.config.js",
             "tsConfig": "apps/parcel-vue/tsconfig.spec.json",
             "setupFile": "apps/parcel-vue/src/test-setup.ts"
+          }
+        },
+        "server": {
+          "builder": "parcel:build",
+          "options": {
+            "outputPath": "dist/server",
+            "main": "apps/parcel-vue/src/main.server.ts",
+            "assets": ["apps/parcel-vue/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/parcel-vue/src/environments/environment.ts",
+                  "with": "apps/parcel-vue/src/environments/environment.prod.ts"
+                }
+              ]
+            }
           }
         }
       }
@@ -108,10 +128,67 @@
           }
         }
       }
+    },
+    "api": {
+      "root": "apps/api",
+      "sourceRoot": "apps/api/src",
+      "projectType": "application",
+      "prefix": "api",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@nrwl/node:build",
+          "options": {
+            "outputPath": "dist/apps/api",
+            "main": "apps/api/src/main.ts",
+            "tsConfig": "apps/api/tsconfig.app.json",
+            "assets": ["apps/api/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/api/src/environments/environment.ts",
+                  "with": "apps/api/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "api:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:lint",
+          "options": {
+            "linter": "eslint",
+            "config": "apps/api/.eslintrc",
+            "tsConfig": [
+              "apps/api/tsconfig.app.json",
+              "apps/api/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/api/**"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "apps/api/jest.config.js",
+            "tsConfig": "apps/api/tsconfig.spec.json"
+          }
+        }
+      }
     }
   },
   "cli": {
-    "defaultCollection": "@nrwl/web"
+    "defaultCollection": "@nrwl/web",
+    "packageManager": "npm"
   },
   "defaultProject": "parcel-vue",
   "schematics": {
@@ -122,19 +199,6 @@
     },
     "@nrwl/cypress": {
       "cypress-project": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/react": {
-      "application": {
-        "linter": "eslint"
-      },
-      "library": {
-        "linter": "eslint"
-      }
-    },
-    "@nrwl/web": {
-      "application": {
         "linter": "eslint"
       }
     },

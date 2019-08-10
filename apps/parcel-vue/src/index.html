@@ -1,14 +1,30 @@
-<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>ParcelVue</title>
-    <base href="/" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/x-icon" href="favicon.ico" />
-  </head>
-  <body>
-    <parcel-vue-root></parcel-vue-root>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Homestyle</title>
+  <base href="/">
+
+  <!-- update the version number as needed -->
+  <script defer="" src="#/__/firebase/6.2.3/firebase-app.js"></script>
+  <!-- include only the Firebase features as you need -->
+  <!-- <script defer src="#/__/firebase/6.2.3/firebase-auth.js"></script> -->
+  <!-- <script defer src="#/__/firebase/6.2.3/firebase-database.js"></script> -->
+  <!-- <script defer src="#/__/firebase/6.2.3/firebase-messaging.js"></script> -->
+  <!-- <script defer src="#/__/firebase/6.2.3/firebase-storage.js"></script> -->
+  <!-- initialize the SDK after all desired features are loaded -->
+  <script defer="" src="#/__/firebase/init.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#42b983">
+</head>
+
+<body>
+  <!--vue-ssr-outlet-->
+  <div id="app"></div>
+  <noscript>Please enable JavaScript to continue using this application.</noscript>
+  <script src="./main.client.ts"></script>
+</body>
+
 </html>
