@@ -36,7 +36,7 @@
   "private": true,
   "dependencies": {
     "@nestjs/common": "^6.2.4",
-    "@nestjs/core": "^6.2.4",
+    "@nestjs/core": "^9.0.5",
     "@nestjs/platform-express": "^6.2.4",
     "firebase-admin": "^8.3.0",
     "firebase-functions": "^3.2.0",
